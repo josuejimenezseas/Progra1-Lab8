@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Classes\DataLoader.cpp" />
     <ClCompile Include="Classes\IngredientSelector.cpp" />
+    <ClCompile Include="HerbsRepository.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Classes\PizzaBuilder.cpp" />
     <ClCompile Include="Classes\TomatoesRepository.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Headers\IngredientSelector.h" />
     <ClInclude Include="Headers\PizzaBuilder.h" />
     <ClInclude Include="Headers\TomatoesRepository.h" />
+    <ClInclude Include="HerbsRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data\cheese.txt" />
