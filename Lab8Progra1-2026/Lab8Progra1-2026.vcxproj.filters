@@ -30,6 +30,9 @@
     <ClCompile Include="Classes\TomatoesRepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HerbsRepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\DataLoader.h">
@@ -44,11 +47,17 @@
     <ClInclude Include="Headers\TomatoesRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HerbsRepository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data\cheese.txt" />
     <Text Include="Data\herbs.txt" />
     <Text Include="Data\meats.txt" />
     <Text Include="Data\tomatoes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
 </Project>
