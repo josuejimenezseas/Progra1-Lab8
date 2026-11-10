@@ -4,6 +4,7 @@
 #include "TomatoesRepository.h"
 #include "IngredientSelector.h"
 #include "../HerbsRepository.h"
+#include "CheeseRepository.h"
 
 class PizzaBuilder {
 public:
@@ -16,6 +17,7 @@ private:
     void WaitForEnterAndClear();
     bool QuiereSeguirAgregandoTomate();
     bool QuiereSeguirAgregandoHerbs();
+    bool QuiereSeguirAgregandoQueso();
     void SelectTomatoes();
     void SelectHerb();
     void IrAlSiguienteIngrediente();
@@ -26,6 +28,7 @@ private:
 
     TomatoesRepository tomatoRepo_;
     HerbsRepository herbsRepository;
+    CheeseRepository cheeseRepo_;
 
     std::vector<std::string> selectedTomatoes_;
     std::vector<std::string> selectedCheeses_;
@@ -33,5 +36,6 @@ private:
     std::vector<std::string> selectedHerbs_;
 
     const std::vector<std::string> availableTomatoes_ = { "Cherry", "Roma", "Beefsteak", "Heirloom", "Grape" };
+    const std::vector<std::string> availableCheeses_ = { "Mozzarella", "Cheddar", "Parmesan", "Cream Cheese", "Gouda", "Blue Cheese", "Feta" };
     const std::vector<std::string> availableHerbs_ = { "Basil", "Parsley", "Oregano", "Thyme", "Rosemary", "Cilantro", "Sage", "Chives" };
 };
