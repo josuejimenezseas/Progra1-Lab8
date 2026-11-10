@@ -34,6 +34,48 @@ bool PizzaBuilder::QuiereSeguirAgregandoTomate() {
     }
 }
 
+bool PizzaBuilder::QuiereSeguirAgregandoHerbs() {
+    while (true) {
+        std::cout << "\n¿Quieres seguir agregando hierbas?" << std::endl;
+        std::cout << "1. Sí" << std::endl;
+        std::cout << "2. No, pasar al siguiente ingrediente" << std::endl;
+        std::cout << "Elige una opción: ";
+
+        std::string opcion;
+        std::getline(std::cin, opcion);
+
+        if (opcion == "1") {
+            return true;
+        }
+        if (opcion == "2") {
+            return false;
+        }
+
+        std::cout << "Opción no válida. Escribe 1 o 2." << std::endl;
+    }
+}
+
+bool PizzaBuilder::QuiereSeguirAgregandoQueso() {
+    while (true) {
+        std::cout << "\n¿Quieres seguir agregando queso?" << std::endl;
+        std::cout << "1. Sí" << std::endl;
+        std::cout << "2. No, pasar al siguiente ingrediente" << std::endl;
+        std::cout << "Elige una opción: ";
+
+        std::string opcion;
+        std::getline(std::cin, opcion);
+
+        if (opcion == "1") {
+            return true;
+        }
+        if (opcion == "2") {
+            return false;
+        }
+
+        std::cout << "Opción no válida. Escribe 1 o 2." << std::endl;
+    }
+}
+
 void PizzaBuilder::BuildPizza() {
     std::cout << "=== Constructor de pizza ===" << std::endl;
     std::cout << "¡Vamos a armar tu pizza!" << std::endl;
@@ -44,21 +86,16 @@ void PizzaBuilder::BuildPizza() {
 }
 
 void PizzaBuilder::IrAlSiguienteIngrediente() {
-    // 2 = queso, 3 = carnes, 4 = hierbas.
-    // Hoy ningún miembro ha conectado el suyo, así que cae en default.
-    int siguiente = 2;
+    int siguiente = 2; 
 
     switch (siguiente) {
     case 2:
-        // TODO queso: descomenta SelectCheese(). No pongas break:
-        // así el switch sigue hasta el default mientras no haya más ingredientes.
-        // SelectCheese();
+        SelectCheese();
     case 3:
-        // TODO carnes: descomenta SelectMeat(). No pongas break todavía.
         // SelectMeat();
     case 4:
-        // TODO hierbas: descomenta SelectHerb(). No pongas break todavía.
-        // SelectHerb();
+        SelectHerb();
+        break;
     default:
         std::cout << "No existen más ingredientes para tu pizza." << std::endl;
         break;
@@ -110,7 +147,8 @@ void PizzaBuilder::DisplayFinalPizza() const {
     case 1:
         if (!selectedTomatoes_.empty()) {
             std::cout << "Tu pizza solo tiene tomate." << std::endl;
-        } else {
+        }
+        else {
             std::cout << "Tu pizza tiene un solo tipo de ingrediente." << std::endl;
         }
         break;
@@ -129,7 +167,6 @@ void PizzaBuilder::DisplayFinalPizza() const {
 }
 
 void PizzaBuilder::SelectTomatoes() {
-    // TODO: Reusar esta linea, pero con su propio Repositorio.
     IngredientSelector<TomatoesRepository> selector(tomatoRepo_, availableTomatoes_, "tomate");
     bool yaPregunto = false;
 
@@ -149,7 +186,8 @@ void PizzaBuilder::SelectTomatoes() {
         bool exitosa = selector.AddIngredientToPizza(userChoice, selectedTomatoes_);
         if (exitosa) {
             std::cout << "La selección fue exitosa." << std::endl;
-        } else {
+        }
+        else {
             std::cout << "La selección no fue exitosa." << std::endl;
         }
 
@@ -165,19 +203,75 @@ void PizzaBuilder::SelectTomatoes() {
     }
 }
 
-// TODO:  Crear cada uno su parte. ☝️ toma el ejemplo de  SelectTomatoes y crea tu propia implementación.
-// Guarda lo elegido en selectedCheeses_, selectedMeats_ o selectedHerbs_.
-// En IrAlSiguienteIngrediente, descomenta la llamada de tu case.
+void PizzaBuilder::SelectHerb() {
+    IngredientSelector<HerbsRepository> selector(herbsRepository, availableHerbs_, "hierbas");
+    bool yaPregunto = false;
 
+    while (true) {
+        std::cout << "\n--- Selección de hierbas ---" << std::endl;
+        selector.DisplayAvailableIngredients();
 
-//void PizzaBuilder::SelectCheese() {
-// // Resolver.
-//}
-//
-//void PizzaBuilder::SelectHerb() {
-//    // Resolver.
-//}
-//
-//void PizzaBuilder::SelectMeat() {
-//    // Resolver.
-//}
+        std::cout << "\nIngresa el tipo de hierbas (o 'listo' para terminar): ";
+        std::string userChoice;
+        std::getline(std::cin, userChoice);
+
+        if (userChoice == "listo" || userChoice == "LISTO") {
+            system("cls");
+            break;
+        }
+
+        bool exitosa = selector.AddIngredientToPizza(userChoice, selectedHerbs_);
+        if (exitosa) {
+            std::cout << "La selección fue exitosa." << std::endl;
+        }
+        else {
+            std::cout << "La selección no fue exitosa." << std::endl;
+        }
+
+        if (exitosa && !yaPregunto) {
+            yaPregunto = true;
+            if (!QuiereSeguirAgregandoHerbs()) {
+                system("cls");
+                return;
+            }
+        }
+
+        WaitForEnterAndClear();
+    }
+}
+
+void PizzaBuilder::SelectCheese() {
+    IngredientSelector<CheeseRepository> selector(cheeseRepo_, availableCheeses_, "queso");
+    bool yaPregunto = false;
+
+    while (true) {
+        std::cout << "\n--- Selección de quesos ---" << std::endl;
+        selector.DisplayAvailableIngredients();
+
+        std::cout << "\nIngresa el tipo de queso (o 'listo' para terminar): ";
+        std::string userChoice;
+        std::getline(std::cin, userChoice);
+
+        if (userChoice == "listo" || userChoice == "LISTO") {
+            system("cls");
+            break;
+        }
+
+        bool exitosa = selector.AddIngredientToPizza(userChoice, selectedCheeses_);
+        if (exitosa) {
+            std::cout << "La selección fue exitosa." << std::endl;
+        } else {
+            std::cout << "La selección no fue exitosa." << std::endl;
+        }
+
+        if (exitosa && !yaPregunto) {
+            yaPregunto = true;
+            if (!QuiereSeguirAgregandoQueso()) {
+                system("cls");
+                return;
+            }
+        }
+
+        WaitForEnterAndClear();
+    }
+}
